@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_blog_main" name="My Blog"/>
+        <menuitem id="menu_blog_articles" name="All Articles" parent="menu_blog_main" action="action_blog_articles"/>
+        <menuitem id="menu_blog_my_articles" name="My Articles" parent="menu_blog_main" action="action_blog_my_articles"/>
+        <menuitem id="menu_blog_categories" name="Categories" parent="menu_blog_main" action="action_blog_category" sequence="30"/>
+        <menuitem id="menu_blog_tags" name="Tags" parent="menu_blog_main" action="action_blog_tag" sequence="40"/>
+        <menuitem id="menu_blog_comments" name="Comments" parent="menu_blog_main" action="action_blog_comment" sequence="50"/>
+    </data>
+</odoo>

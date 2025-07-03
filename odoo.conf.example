@@ -1,0 +1,8 @@
+[options]
+db_host = localhost
+db_port = 5432
+db_user = odoo
+db_password = pass
+addons_path = D:\odoo\odoo18\community\addons,D:\odoo\odoo18\app\addons
+default_productivity_apps = True
+admin_passwd = $pbkdf2-sha512$600000$Rch5T6lVaq2V0jrHOAdgzA$CylXNMCWt6hQWWSoYFbcUEFBC1YeOr0WKSX8gb4hBLBQeGuzWrUW4L.aTI3fz7/PphRy2RAh3WaAfSTHU3Jufg

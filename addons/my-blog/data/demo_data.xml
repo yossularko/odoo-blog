@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Article -->
+        <record id="demo_article_1" model="blog.articles">
+            <field name="title">Welcome to My Blog</field>
+            <field name="slug">welcome-to-my-blog</field>
+            <field name="body"><![CDATA[
+                <h2>Welcome to My Blog!</h2>
+                <p>This is a demo article to show how the blog system works.</p>
+                <p>You can write rich content using HTML editor.</p>
+            ]]>            </field>
+            <field name="author" ref="base.user_admin"/>
+        </record>
+    </data>
+</odoo>

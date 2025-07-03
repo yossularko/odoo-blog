@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Demo Tags -->
+        <record id="tag_python" model="blog.tag">
+            <field name="name">python</field>
+            <field name="color">1</field>
+        </record>
+        
+        <record id="tag_javascript" model="blog.tag">
+            <field name="name">javascript</field>
+            <field name="color">2</field>
+        </record>
+        
+        <record id="tag_odoo" model="blog.tag">
+            <field name="name">odoo</field>
+            <field name="color">3</field>
+        </record>
+        
+        <record id="tag_tutorial" model="blog.tag">
+            <field name="name">tutorial</field>
+            <field name="color">4</field>
+        </record>
+        
+        <record id="tag_beginner" model="blog.tag">
+            <field name="name">beginner</field>
+            <field name="color">5</field>
+        </record>
+        
+        <record id="tag_advanced" model="blog.tag">
+            <field name="name">advanced</field>
+            <field name="color">6</field>
+        </record>
+        
+        <record id="tag_productivity" model="blog.tag">
+            <field name="name">productivity</field>
+            <field name="color">7</field>
+        </record>
+        
+        <record id="tag_tips" model="blog.tag">
+            <field name="name">tips</field>
+            <field name="color">8</field>
+        </record>
+        
+        <record id="tag_web-development" model="blog.tag">
+            <field name="name">web-development</field>
+            <field name="color">9</field>
+        </record>
+        
+        <record id="tag_best-practices" model="blog.tag">
+            <field name="name">best-practices</field>
+            <field name="color">10</field>
+        </record>
+        
+    </data>
+</odoo>

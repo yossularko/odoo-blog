@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_blog_articles_user,blog.articles.user,model_blog_articles,base.group_user,1,1,1,1
+access_blog_articles_public,blog.articles.public,model_blog_articles,,1,0,0,0
+access_blog_category_user,blog.category.user,model_blog_category,base.group_user,1,1,1,1
+access_blog_category_public,blog.category.public,model_blog_category,,1,0,0,0
+access_blog_tag_user,blog.tag.user,model_blog_tag,base.group_user,1,1,1,1
+access_blog_tag_public,blog.tag.public,model_blog_tag,,1,0,0,0
+access_blog_comment_user,blog.comment.user,model_blog_comment,base.group_user,1,1,1,1
+access_blog_comment_public,blog.comment.public,model_blog_comment,,1,1,1,0

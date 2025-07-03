@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ================================ -->
+        <!-- BLOG COMMENT VIEWS -->
+        <!-- ================================ -->
+
+        <!-- Comment Tree View -->
+        <record id="view_blog_comment_tree" model="ir.ui.view">
+            <field name="name">blog.comment.tree</field>
+            <field name="model">blog.comment</field>
+            <field name="arch" type="xml">
+                <tree string="Blog Comments" decoration-muted="not active" decoration-info="not is_approved">
+                    <field name="article_id"/>
+                    <field name="author_display"/>
+                    <field name="content_preview"/>
+                    <field name="comment_level"/>
+                    <field name="reply_count"/>
+                    <field name="create_date"/>
+                    <field name="is_approved" widget="boolean_toggle"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Comment Form View -->
+        <record id="view_blog_comment_form" model="ir.ui.view">
+            <field name="name">blog.comment.form</field>
+            <field name="model">blog.comment</field>
+            <field name="arch" type="xml">
+                <form string="Blog Comment">
+                    <header>
+                        <button name="action_approve" string="Approve" type="object" 
+                                class="btn-success" invisible="is_approved"/>
+                        <button name="action_reject" string="Reject" type="object" 
+                                class="btn-danger" invisible="not is_approved"/>
+                        <button name="action_reply" string="Reply" type="object" 
+                                class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_reply" type="object" 
+                                    class="oe_stat_button" icon="fa-reply">
+                                <field name="reply_count" widget="statinfo" string="Replies"/>
+                            </button>
+                        </div>
+                        
+                        <group>
+                            <group>
+                                <field name="article_id" options="{'no_create': True}"/>
+                                <field name="parent_id" invisible="not parent_id"/>
+                                <field name="comment_level" readonly="1" invisible="comment_level == 0"/>
+                            </group>
+                            <group>
+                                <field name="is_approved"/>
+                                <field name="active"/>
+                                <field name="is_public"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Author Information -->
+                        <group string="Author Information">
+                            <group>
+                                <field name="author_id" invisible="is_public" 
+                                    options="{'no_create': True}"/>
+                                <field name="author_name" invisible="not is_public"/>
+                                <field name="author_email" invisible="not is_public"/>
+                            </group>
+                            <group>
+                                <field name="author_display" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Comment Content -->
+                        <group string="Comment" col="1">
+                            <field name="content" nolabel="1" widget="html" options="{'resizable': true}"/>
+                        </group>
+                        
+                        <!-- Replies -->
+                        <notebook invisible="not child_ids">
+                            <page string="Replies" name="replies">
+                                <field name="child_ids" readonly="1">
+                                    <tree>
+                                        <field name="author_display"/>
+                                        <field name="content_preview"/>
+                                        <field name="create_date"/>
+                                        <field name="is_approved"/>
+                                        <field name="active"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Comment Search View -->
+        <record id="view_blog_comment_search" model="ir.ui.view">
+            <field name="name">blog.comment.search</field>
+            <field name="model">blog.comment</field>
+            <field name="arch" type="xml">
+                <search string="Search Comments">
+                    <field name="content"/>
+                    <field name="article_id"/>
+                    <field name="author_id"/>
+                    <field name="author_name"/>
+                    
+                    <filter string="Approved" name="approved_comments" 
+                            domain="[('is_approved', '=', True)]"/>
+                    <filter string="Pending Approval" name="pending_comments" 
+                            domain="[('is_approved', '=', False)]"/>
+                    <filter string="Active" name="active_comments" 
+                            domain="[('active', '=', True)]"/>
+                    <filter string="Top Level" name="top_level_comments" 
+                            domain="[('parent_id', '=', False)]"/>
+                    <filter string="Replies" name="reply_comments" 
+                            domain="[('parent_id', '!=', False)]"/>
+                    <filter string="Public Comments" name="public_comments" 
+                            domain="[('is_public', '=', True)]"/>
+                    
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Article" name="group_article" 
+                                context="{'group_by': 'article_id'}"/>
+                        <filter string="Author" name="group_author" 
+                                context="{'group_by': 'author_id'}"/>
+                        <filter string="Approval Status" name="group_approval" 
+                                context="{'group_by': 'is_approved'}"/>
+                        <filter string="Level" name="group_level" 
+                                context="{'group_by': 'comment_level'}"/>
+                        <filter string="Date" name="group_date" 
+                                context="{'group_by': 'create_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Comment Kanban View -->
+        <record id="view_blog_comment_kanban" model="ir.ui.view">
+            <field name="name">blog.comment.kanban</field>
+            <field name="model">blog.comment</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="article_id">
+                    <field name="content_preview"/>
+                    <field name="author_display"/>
+                    <field name="create_date"/>
+                    <field name="is_approved"/>
+                    <field name="active"/>
+                    <field name="reply_count"/>
+                    <field name="comment_level"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="author_display"/>
+                                            </strong>
+                                            <div class="o_kanban_record_top_right">
+                                                <span t-if="record.is_approved.raw_value" 
+                                                    class="badge badge-success">Approved</span>
+                                                <span t-if="!record.is_approved.raw_value" 
+                                                    class="badge badge-warning">Pending</span>
+                                                <span t-if="record.comment_level.raw_value > 0" 
+                                                    class="badge badge-info ms-1">
+                                                    Level <t t-esc="record.comment_level.raw_value"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_record_body">
+                                        <field name="content_preview"/>
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <small class="text-muted">
+                                                <i class="fa fa-clock-o"/> 
+                                                <field name="create_date" widget="date"/>
+                                            </small>
+                                        </div>
+                                        <div class="oe_kanban_bottom_right">
+                                            <span t-if="record.reply_count.raw_value > 0" 
+                                                class="badge badge-primary">
+                                                <field name="reply_count"/> replies
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Comment Action -->
+        <record id="action_blog_comment" model="ir.actions.act_window">
+            <field name="name">Blog Comments</field>
+            <field name="res_model">blog.comment</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{'search_default_approved_comments': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No comments yet!
+                </p>
+                <p>
+                    Comments will appear here as users engage with your blog articles.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
