@@ -74,8 +74,9 @@
                                 <field name="body" widget="html"/>
                             </page>
                             <page string="Categories &amp; Tags">
-                                <group>
-                                    <group string="Categories">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="o_form_label" style="font-weight: bold; font-size: 14px; margin-bottom: 30px;">Categories</div>
                                         <field name="category_ids" nolabel="1">
                                             <tree editable="bottom">
                                                 <field name="name"/>
@@ -83,16 +84,17 @@
                                                 <field name="article_count"/>
                                             </tree>
                                         </field>
-                                    </group>
-                                    <group string="Tags">
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="o_form_label" style="font-weight: bold; font-size: 14px; margin-bottom: 30px;">Tags</div>
                                         <field name="tag_ids" nolabel="1">
                                             <tree editable="bottom">
                                                 <field name="name"/>
                                                 <field name="article_count"/>
                                             </tree>
                                         </field>
-                                    </group>
-                                </group>
+                                    </div>
+                                </div>
                             </page>
                             <page string="Comments" name="comments">
                                 <div class="row">
